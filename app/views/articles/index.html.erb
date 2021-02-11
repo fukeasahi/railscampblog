@@ -1,0 +1,40 @@
+    <div id="main">
+        <%= image_tag 'main-img.jpg' %>
+    </div>
+    
+    
+    <div id="article_wrap">
+            <div id="article_list">
+                <% @articles.each do |article| %>
+                  <div>
+                    <h2><%= article.title %></h2>
+                    <p><%= article.created_at.strftime('%Y/%m/%d') %></p>
+                    <% if user_signed_in? %>
+                        <%= link_to "編集", edit_article_path(article) %> <%= link_to "削除", article_path(article), method: :delete %>
+                    <% end %>
+                  </div>
+               <% end %>
+            </div>
+       
+            <div id="sidebar">
+        
+                <h2>★PV数ランキング</h2>
+                <ul>
+                    <!--<li><a href="">記事タイトル記事タイトル１記事タイトル記事タイトル<span>（10PV）</span></a></li>-->
+                    <!--<li><a href="">記事タイトル記事タイトル１記事タイトル記事タイトル<span>（8PV）</span></a></li>-->
+                    <!--<li><a href="">記事タイトル記事タイトル１記事タイトル記事タイトル<span>（2PV）</span></a></li>-->
+                    
+                   <% @ranks.each do |rank| %>
+                        <table>
+                            <tr>
+                                <th><%= link_to rank[0], article_path(Article.find_by(title: rank[0])), style: "color: #00a9a2;"%></th>
+                                <th style="margin-right: 30px;">(<%= rank[1].round %>PV)</th>
+                            </tr>
+                        </table>
+                    <% end %>
+                </ul>
+            </div>
+        <div class="clear"></div>
+    </div>
+
+
