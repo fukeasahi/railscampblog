@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!, except: [:index]
+    before_action :authenticate_user!, except: [:index, :show]
     def index
         @articles = Article.all
         @ranks = REDIS.zrevrange "ranking", 0, 2, withscores: true
